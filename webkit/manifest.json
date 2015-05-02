@@ -29,7 +29,7 @@
         }
     ],
     "background": {
-        "persistent": true,
-        "page": "background.html"
+        "persistent": false,
+        "scripts": ["background.js"]
     }
 }
