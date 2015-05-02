@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "VK Privnote",
+    "version": "0.0.1",
+    "description": "",
+    "icons": {
+        "128": "icon.png"
+    },
+    "permissions": [
+        "clipboardWrite",
+        "notifications",
+        "storage",
+        "*://vk.com/",
+        "https://privnote.com/"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://vk.com/*"
+            ],
+            "js": [
+                "lib/gibberish-aes.js",
+                "lib/privnote.js",
+                "lib/app.js",
+                "index.js"
+            ],
+            "css": [ "css/styles.css" ],
+            "run_at": "document_end"
+        }
+    ],
+    "background": {
+        "persistent": true,
+        "page": "background.html"
+    }
+}
