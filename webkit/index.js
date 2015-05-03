@@ -29,15 +29,17 @@ function directCopy (content) {
  */
 function initEnigma (request, sender, sendResponse) {
     if (rimPage.test(window.location.href)) {
-        var app = new App;
+        if (App.isInit()) {
+            return;
+        }
         
-        app.buildUI(function (link) {
+        App.init();
+        
+        App.buildUI(function (link) {
             directCopy(link);
         });
         
-        app.injectScript('lib/inject.js');
-        
-        document.addEventListener('enigma.recieve', app.onSend);
+        App.injectScript('lib/inject.js');
     }
 }
 
