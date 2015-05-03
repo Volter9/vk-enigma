@@ -2,21 +2,41 @@
 
 var rimPage = /im\?sel=/;
 
-function directCopy(str) {
-    var prevHandler = document.oncopy;
-    document.oncopy = function (evt) {
-        evt.clipboardData.setData('Text', str);
-        evt.preventDefault();
+/**
+ * Copy supplied content
+ * 
+ * @param {String}
+ */
+function directCopy (content) {
+    var previousHandler = document.oncopy;
+    
+    document.oncopy = function (e) {
+        e.preventDefault();
+        e.clipboardData.setData('Text', str);
 
-        document.oncopy = prevHandler;
+        document.oncopy = previousHandler;
     };
+    
     document.execCommand('Copy');
 }
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+/**
+ * Initialize enigma
+ * 
+ * @param {Object} request
+ * @param {Object} sender
+ * @param {Object} sendResponse
+ */
+function initEnigma (request, sender, sendResponse) {
     if (rimPage.test(window.location.href)) {
-        App.buildUI(function (link) {
+        var app = new App;
+        
+        app.buildUI(function (link) {
             directCopy(link);
         });
+        
+        app.injectScript('lib/inject.js');
     }
-});
+}
+
+chrome.runtime.onMessage.addListener(initEnigma);

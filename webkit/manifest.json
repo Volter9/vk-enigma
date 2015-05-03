@@ -13,6 +13,9 @@
         "*://vk.com/",
         "https://privnote.com/"
     ],
+    "web_accessible_resources": [
+        "lib/inject.js"
+    ],
     "content_scripts": [
         {
             "matches": [
