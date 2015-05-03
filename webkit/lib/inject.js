@@ -9,7 +9,8 @@ if (window.IM) {
         
         document.dispatchEvent(new CustomEvent('enigma.recieve', {
             detail: { 
-                message: text.innerText || text.textContent 
+                message: text.innerText || text.textContent,
+                peer: cur.peer
             }
         }));
     };

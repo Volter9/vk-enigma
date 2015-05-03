@@ -17,8 +17,7 @@ var App = {
                 return;
             }
         
-            var imTextarea = document.getElementById('im_texts'),
-                editable = imTextarea.querySelector('.im_editable');
+            var editable = document.getElementById('im_editable' + event.detail.peer);
         
             Privnote.crypt(event.detail.message, function (link) {
                 editable.innerHTML = 'Ссылка на просмотр сообщения: ' + link;
