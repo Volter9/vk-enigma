@@ -1,6 +1,6 @@
 'use strict';
 
-var rimPage = /im\?sel=/;
+var rimPage = /im\?(?:sel|peers)=/;
 
 /**
  * Copy supplied content
@@ -36,6 +36,8 @@ function initEnigma (request, sender, sendResponse) {
         });
         
         app.injectScript('lib/inject.js');
+        
+        document.addEventListener('enigma.recieve', app.onSend);
     }
 }
 

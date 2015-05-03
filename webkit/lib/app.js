@@ -1,6 +1,27 @@
 'use strict';
 
-var App = function () {};
+var App = function () {
+    var self = this;
+    
+    this.checked = false;
+    
+    this.onSend = function (event) {
+        if (!self.checked) {
+            document.dispatchEvent(new CustomEvent('enigma.send'));
+            
+            return;
+        }
+        
+        var imTextarea = document.getElementById('im_texts'),
+            editable = imTextarea.querySelector('.im_editable');
+        
+        Privnote.crypt(event.detail.message, function (link) {
+            editable.innerHTML = 'Ссылка на просмотр сообщения: ' + link;
+            
+            document.dispatchEvent(new CustomEvent('enigma.send'));
+        });
+    };
+};
 
 /**
  * Build UI for vk messages
@@ -8,7 +29,9 @@ var App = function () {};
  * @param {Function} handleLink
  */
 App.prototype.buildUI = function (handleLink) {
-    var imTextarea = document.getElementById('im_texts');
+    if (document.getElementById('enigma_checkbox')) {
+        return;
+    }
     
     this.createCheckBox();
 };
@@ -19,7 +42,8 @@ App.prototype.buildUI = function (handleLink) {
 App.prototype.createCheckBox = function () {
     var imForm   = document.getElementById('im_write_form'),
         checkbox = document.createElement('input'),
-        label    = document.createElement('label');
+        label    = document.createElement('label'),
+        self     = this;
     
     label.innerText = label.textContent = 'Послать через privnote: ';
     
@@ -27,12 +51,19 @@ App.prototype.createCheckBox = function () {
     checkbox.id = 'enigma_checkbox';
     
     checkbox.addEventListener('change', function () {
-        // 
+        self.check(this.checked);
     });
     
     label.appendChild(checkbox);
     
     imForm.appendChild(label);
+};
+
+/**
+ * 
+ */
+App.prototype.check = function (check) {
+    this.checked = check;
 };
 
 /**
