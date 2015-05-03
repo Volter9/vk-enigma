@@ -1,13 +1,12 @@
 {
     "manifest_version": 2,
-    "name": "VK Privnote",
+    "name": "VK Enigma",
     "version": "0.0.1",
-    "description": "",
+    "description": "Extension for hiding outgoing messages into VK",
     "icons": {
         "128": "icon.png"
     },
     "permissions": [
-        "clipboardWrite",
         "notifications",
         "storage",
         "*://vk.com/",
@@ -27,7 +26,7 @@
                 "lib/app.js",
                 "index.js"
             ],
-            "css": [ "css/styles.css" ],
+            "css": ["css/styles.css"],
             "run_at": "document_end"
         }
     ],

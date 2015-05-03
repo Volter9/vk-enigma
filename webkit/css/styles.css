@@ -1,3 +1,11 @@
 @charset "utf-8";
 
 /* TODO: */
+
+#enigma_checkbox {
+    vertical-align: middle;
+}
+
+.enigma_input_busy {
+    background-color: #eee !important;
+}

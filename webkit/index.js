@@ -3,24 +3,6 @@
 var rimPage = /im\?(?:sel|peers)=/;
 
 /**
- * Copy supplied content
- * 
- * @param {String}
- */
-function directCopy (content) {
-    var previousHandler = document.oncopy;
-    
-    document.oncopy = function (e) {
-        e.preventDefault();
-        e.clipboardData.setData('Text', str);
-
-        document.oncopy = previousHandler;
-    };
-    
-    document.execCommand('Copy');
-}
-
-/**
  * Initialize enigma
  * 
  * @param {Object} request
@@ -35,9 +17,7 @@ function initEnigma (request, sender, sendResponse) {
         
         App.init();
         
-        App.buildUI(function (link) {
-            directCopy(link);
-        });
+        App.buildUI();
         
         App.injectScript('lib/inject.js');
     }

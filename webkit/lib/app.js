@@ -9,6 +9,8 @@ var App = {
         
         this.isInited = true;
         this.checked = false;
+        
+        
     
         this.onSend = function (event) {
             if (!self.checked) {
@@ -18,9 +20,15 @@ var App = {
             }
         
             var editable = document.getElementById('im_editable' + event.detail.peer);
+            editable.classList.add('enigma_input_busy');
+            
+            self.sendButton.disabled = true;
         
             Privnote.crypt(event.detail.message, function (link) {
+                editable.classList.remove('enigma_input_busy');
                 editable.innerHTML = 'Ссылка на просмотр сообщения: ' + link;
+                
+                self.sendButton.disabled = false;
             
                 document.dispatchEvent(new CustomEvent('enigma.send'));
             });
@@ -38,16 +46,15 @@ var App = {
     
     /**
      * Build UI for vk messages
-     * 
-     * @param {Function} handleLink
      */
-    buildUI: function (handleLink) {
+    buildUI: function () {
         if (document.getElementById('enigma_checkbox')) {
             return;
         }
     
         document.addEventListener('enigma.recieve', this.onSend);
     
+        this.sendButton = document.getElementById('im_send');
         this.createCheckBox();
     },
     
