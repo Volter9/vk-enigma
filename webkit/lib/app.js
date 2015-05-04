@@ -10,8 +10,6 @@ var App = {
         this.isInited = true;
         this.checked = false;
         
-        
-    
         this.onSend = function (event) {
             if (!self.checked) {
                 document.dispatchEvent(new CustomEvent('enigma.send'));

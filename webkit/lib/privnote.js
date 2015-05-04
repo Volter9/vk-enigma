@@ -13,8 +13,8 @@ var Privnote = (function () {
     function random_string (length) {
         length = length || 16;
         
-        var chars  = "abcdefghijklmnopqrstuvwxyz0123456789",
-            result = "";
+        var chars  = 'abcdefghijklmnopqrstuvwxyz0123456789',
+            result = '';
         
         for (var i = 0; i < length; i++) {
             var pos = Math.floor(Math.random() * chars.length);
@@ -38,9 +38,9 @@ var Privnote = (function () {
         var postData = 'body=' + encodeURIComponent(enc) + '&sender_email=&reference=';
 
         var headers = {
-            "Accept-Language": "en-US,en;q=0.8",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "application/json, text/javascript, */*"
+            'Accept-Language': 'en-US,en;q=0.8',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json, text/javascript, */*'
         };
 
         var xhr = new XMLHttpRequest();

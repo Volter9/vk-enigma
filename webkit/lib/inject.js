@@ -1,3 +1,5 @@
+'use strict';
+
 if (window.IM) {
     var _send = IM.send;
     
