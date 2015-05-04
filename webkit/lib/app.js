@@ -13,7 +13,7 @@ var App = {
         this.onSend = function (event) {
             if (!self.checked) {
                 document.dispatchEvent(new CustomEvent('enigma.send'));
-            
+                
                 return;
             }
         

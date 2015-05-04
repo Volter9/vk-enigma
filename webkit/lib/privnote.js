@@ -4,6 +4,12 @@
  * @link https://github.com/nonrational/privnote-cli
  */
 var Privnote = (function () {
+    var headers = {
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json, text/javascript, */*'
+    };
+    
     /**
      * Get random string specified length
      * 
@@ -35,31 +41,24 @@ var Privnote = (function () {
         var key = random_string(null),
             enc = GibberishAES.enc(note, key);
 
-        var postData = 'body=' + encodeURIComponent(enc) + '&sender_email=&reference=';
-
-        var headers = {
-            'Accept-Language': 'en-US,en;q=0.8',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json, text/javascript, */*'
-        };
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://privnote.com', true);
+        var postData = 'body=' + encodeURIComponent(enc) + '&sender_email=&reference=',
+            request = new XMLHttpRequest();
         
-        Object.keys(headers).forEach(function (key) {
-            xhr.setRequestHeader(key, headers[key]);
-        });
-        
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState !== 4 || xhr.status !== 200) return;
+        request.open('POST', 'https://privnote.com', true);
+        request.onreadystatechange = function () {
+            if (request.readyState !== 4 || request.status !== 200) return;
 
             var dummy = document.createElement('div');
-            dummy.innerHTML = xhr.response.replace(/\\"/g, '"');
+            dummy.innerHTML = request.response.replace(/\\"/g, '"');
 
             callback(dummy.getElementsByTagName('input')[0].value + '#' + key);
         };
         
-        xhr.send(postData);
+        for (var header in headers) {
+            request.setRequestHeader(header, headers[header]);
+        };
+        
+        request.send(postData);
     };
     
     return {

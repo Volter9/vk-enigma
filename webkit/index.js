@@ -1,6 +1,6 @@
 'use strict';
 
-var rimPage = /im\?(?:sel|peers)=/;
+var imPage = /im\?(?:sel|peers)=/;
 
 /**
  * Initialize enigma
@@ -10,17 +10,13 @@ var rimPage = /im\?(?:sel|peers)=/;
  * @param {Object} sendResponse
  */
 function initEnigma (request, sender, sendResponse) {
-    if (rimPage.test(window.location.href)) {
-        if (App.isInit()) {
-            return;
-        }
-        
-        App.init();
-        
-        App.buildUI();
-        
-        App.injectScript('lib/inject.js');
+    if (!imPage.test(window.location.href) || App.isInit()) {
+        return;
     }
+    
+    App.init();
+    App.buildUI();
+    App.injectScript('lib/inject.js');
 }
 
 chrome.runtime.onMessage.addListener(initEnigma);

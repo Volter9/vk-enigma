@@ -9,6 +9,8 @@ if (window.IM) {
     IM.send = function () {
         var text = ge('im_texts').querySelector('.im_editable');
         
+        lockFlatButton(ge('im_send'));
+        
         document.dispatchEvent(new CustomEvent('enigma.recieve', {
             detail: { 
                 message: text.innerText || text.textContent,
@@ -18,10 +20,10 @@ if (window.IM) {
     };
     
     document.addEventListener('enigma.send', function () {
+        unlockFlatButton(ge('im_send'));
+        
         _send.apply(IM, arguments);
     });
-    
-    var spammed = [];
     
     /**
      * Spam VK Emoji's options objects
@@ -32,9 +34,7 @@ if (window.IM) {
             
             clearInterval(timer);
         }
-        catch (e) {
-            console.log('abcdef');
-        }
+        catch (e) {}
     }
     
     /**
